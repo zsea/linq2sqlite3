@@ -187,7 +187,7 @@ await db.table("scores").where({ id: 1 }).insertOrUpdate({ userid: 1, score: 50 
 ### 参数
 
 * table - 可以是表名称，SqlTable对象和db.table实例。
-* [database] - 指定库名称，默认为链接字符串中指定的库名。
+* [database] - 指定库名称，默认值：main。
 
 ## db.execute
 
