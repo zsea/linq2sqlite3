@@ -24,6 +24,8 @@ linq.Open方法，一共有三个参数：
 * logger - 在执行SQL语句前，调用此回调进行日志记录
 * busyTimeout - 繁忙处理的超时时间，默认值：3000
 
+> 在通常情况下，我们新打开一个数据库时，需要在初始化表结构，可以在```Open```成功后，执行```DDL```用于创建表结构。
+
 ## 查询
 
 ### where
@@ -111,6 +113,15 @@ await db.table('users').insert({
         password:'admin888',
         age:39
     })
+await db.table('users').insert({
+        username:'admin',
+        password:'admin888',
+        age:39
+    },{
+        username:'admin',
+        password:'chagepwd',
+        age:40
+    })    
 await db.table('users').insert([{
         username:'admin',
         password:'admin888',
@@ -123,6 +134,9 @@ await db.table('users').insert([{
 ```
 
 ```insert``` 方法参数可以是一个对象或数组。
+
+当包含第二个参数时，第一个参数只能是一个对象，此时，只能插入一个对象。当第一个参入写入到数据库中发生主键冲突时，使用第二个参数更新冲突的数据库行。
+当第二个参数是一个表达式时，第三个参数为表达式的常量。
 
 ## Update
 
@@ -162,6 +176,8 @@ var items=await db.table(new linq.SqlTable('select * from scores where score>10'
 ```
 
 ## 更新或插入对象
+
+> 已废弃，请直接使用```insert```的```replacer```参数。
 
 在某些时候，我们需要判断指定查询条件的在数据库中是否有值，在有的时候调用更新语句，没有的时候调用写入语句。
 
