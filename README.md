@@ -210,9 +210,17 @@ await db.table("scores").where({ id: 1 }).insertOrUpdate({ userid: 1, score: 50 
 执行sql语句，并返回结果。
 
 ```javascript
-await db.execute(sql,[values]);
+await db.execute(sql,{});
 ```
 
+sqlite3的参数形式如下：
+
+```javascript
+{
+  "sql": 'DELETE FROM "db"."tb" WHERE (("db"."tb"."x" > $v_1) and ("db"."tb"."1" < $v_2))',
+  "params": { '$v_1': 2, '$v_2': 1 }
+}
+```
 
 # 其它
 
